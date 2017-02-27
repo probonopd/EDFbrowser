@@ -14,13 +14,10 @@ install:
 script:
   - qmake PREFIX=/usr
   - make -j4
-  - make INSTALL_ROOT=appdir install ; cd appdir ; find .
-  - cp ./usr/share/applications/edfbrowser.desktop .
-  - cp ./usr/share/icons/hicolor/48x48/apps/edf.png .
-  - cd .. 
-  - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/3/linuxdeployqt-3-x86_64.AppImage" 
+  - make INSTALL_ROOT=appdir install ; find .
+  - wget -c "https://github.com/probonopd/linuxdeployqt/releases/download/continuous/linuxdeployqt-continuous-x86_64.AppImage" 
   - chmod a+x linuxdeployqt*.AppImage
   - unset QTDIR; unset QT_PLUGIN_PATH ; unset LD_LIBRARY_PATH
-  - ./linuxdeployqt*.AppImage ./appdir/usr/bin/edfbrowser -bundle-non-qt-libs
-  - ./linuxdeployqt*.AppImage ./appdir/usr/bin/edfbrowser -appimage 
+  - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/edfbrowser.desktop -bundle-non-qt-libs
+  - ./linuxdeployqt*.AppImage ./appdir/usr/share/applications/edfbrowser.desktop -appimage 
   - curl --upload-file ./EDFbrowser-*.AppImage https://transfer.sh/EDFbrowser-git$(git rev-parse --short HEAD)-x86_64.AppImage 
